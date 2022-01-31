@@ -34,11 +34,16 @@ def doc_app(number, doc_type, name, shelf):
         print('Такой полки не существует')
 
 def doc_del(number):
-    for i in range(len(documents)):
-        if documents[i].get('number') == number:
-            del documents[i]
-            print('Документ удален')
-            break
+    for doc in documents:
+        if doc['number'] == number:
+            for i in range(len(documents)):
+                if documents[i].get('number') == number:
+                    del documents[i]
+                    print('Документ удален')
+                    return
+    else:
+        print('Документ не обнаружен')
+        return
 
 while True:
     user_command = input('Введите команду (p,s,l,a,d): ')
@@ -61,11 +66,6 @@ while True:
         doc_app(number, doc_type, name, shelf)
     elif user_command == 'd':
         number = input('Введите номер документа: ')
-        for doc in documents:
-            if doc['number'] == number:
-                doc_del(number)
-                break
-        else:
-            print('Документ не обнаружен')
+        doc_del(number)
     else:
         print('Недопустимая команда')
