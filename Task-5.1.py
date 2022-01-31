@@ -18,7 +18,7 @@ def doc_owner(number):
     return result
 
 def doc_shelf(number):
-    result = 'Документ не обнаружен'
+    result ='Документ не обнаружен'
     for shelf_number, docs in directories.items():
         for doc_number in docs:
             if doc_number == number:
@@ -29,13 +29,19 @@ def doc_app(number, doc_type, name, shelf):
     if shelf in directories.keys():
         documents.append({"type": doc_type, "number": number, "name": name})
         directories[shelf].append(number)
-        print('Документ успешно добавлен!')
+        print('Документ успешно добавлен')
     else:
         print('Такой полки не существует')
 
+def doc_del(number):
+    for i in range(len(documents)):
+        if documents[i].get('number') == number:
+            del documents[i]
+            print('Документ удален')
+            break
 
 while True:
-    user_command = input('Введите команду (p,s,l,a): ')
+    user_command = input('Введите команду (p,s,l,a,d): ')
 
     if user_command == 'p':
         user_input = input('Введите номер документа: ')
@@ -53,5 +59,13 @@ while True:
         name = input('Введите имя владельца: ')
         shelf = input('Введите номер полки: ')
         doc_app(number, doc_type, name, shelf)
+    elif user_command == 'd':
+        number = input('Введите номер документа: ')
+        for doc in documents:
+            if doc['number'] == number:
+                doc_del(number)
+                break
+        else:
+            print('Документ не обнаружен')
     else:
         print('Недопустимая команда')
