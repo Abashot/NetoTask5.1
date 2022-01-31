@@ -18,7 +18,7 @@ def doc_owner(number):
     return result
 
 def doc_shelf(number):
-    result ='Документ не обнаружен'
+    result = 'Документ не обнаружен'
     for shelf_number, docs in directories.items():
         for doc_number in docs:
             if doc_number == number:
